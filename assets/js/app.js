@@ -19,29 +19,14 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-import Elm from './elm/main';
+import Elm from "./elm/main";
+import * as Recaptcha from "./lib/recaptcha";
 
 window.onloadCallback = () => {
-  const formContainer = document.querySelector('#form_container');
+  const formContainer = document.querySelector("#form_container");
 
   if (formContainer) {
     const app = Elm.Main.embed(formContainer);
-    let recaptcha;
-
-    app.ports.initRecaptcha.subscribe(id => {
-      window.requestAnimationFrame(() => {
-        recaptcha = grecaptcha.render(id, {
-          hl: 'en',
-          sitekey: '6LccDkwUAAAAACiEnnM1HucXGT0rdgcYQwag5WsJ',
-          callback: result => {
-            app.ports.setRecaptchaToken.send(result);
-          },
-        });
-      });
-    });
-
-    app.ports.resetRecaptcha.subscribe(() => {
-      grecaptcha.reset(recaptcha);
-    });
+    Recaptcha.initPorts(app);
   }
 };
