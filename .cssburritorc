@@ -1,0 +1,5 @@
+{
+  "pathToStyles": "assets",
+  "stylesDirectoryName": "css",
+  "stylesFileName": "app.scss"
+}
