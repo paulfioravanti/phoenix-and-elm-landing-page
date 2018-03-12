@@ -11,7 +11,7 @@ defmodule LandingPage.Marketing do
                              :client
                            ]
 
-  def subscribe(lead_params) do
+  def subscribe_lead(lead_params) do
     token = Map.get(lead_params, "recaptcha_token")
 
     with %Ecto.Changeset{valid?: true} = changeset <-

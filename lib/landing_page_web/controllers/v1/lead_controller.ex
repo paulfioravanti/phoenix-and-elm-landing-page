@@ -6,7 +6,7 @@ defmodule LandingPageWeb.V1.LeadController do
   plug(:scrub_params, "lead")
 
   def create(conn, %{"lead" => params}) do
-    with {:ok, lead} <- Marketing.subscribe(params) do
+    with {:ok, lead} <- Marketing.subscribe_lead(params) do
       json(conn, lead)
     end
   end

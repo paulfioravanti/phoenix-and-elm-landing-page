@@ -1,4 +1,4 @@
-port module Ports exposing (..)
+port module Recaptcha.Ports exposing (initRecaptcha, resetRecaptcha)
 
 -- Browser-bound (-> Cmd msg)
 

@@ -3,7 +3,7 @@ module Commands exposing (subscribe)
 import Http
 import Json.Decode as JD
 import Json.Encode as JE
-import Decoders exposing (responseDecoder)
+import Decoders exposing (postResponseDecoder)
 import Messages exposing (Msg(..))
 import Model exposing (SubscribeForm(..), FormFields)
 
@@ -25,7 +25,7 @@ post formFields =
         , headers = []
         , url = "/api/v1/leads"
         , body = Http.jsonBody (encodeModel formFields)
-        , expect = Http.expectJson responseDecoder
+        , expect = Http.expectJson postResponseDecoder
         , timeout = Nothing
         , withCredentials = False
         }

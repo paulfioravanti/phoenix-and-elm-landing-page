@@ -1,6 +1,7 @@
 module Messages exposing (Msg(..))
 
 import Http
+import Recaptcha.Messages exposing (RecaptchaMsg)
 
 
 type Msg
@@ -8,4 +9,4 @@ type Msg
     | HandleEmailInput String
     | HandleFormSubmit
     | SubscribeResponse (Result Http.Error Bool)
-    | SetRecaptchaToken String
+    | RecaptchaMsg RecaptchaMsg

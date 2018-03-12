@@ -1,29 +1,27 @@
 module Main exposing (main)
 
-import Html exposing (Html)
-import Messages exposing (Msg(..))
-import Model exposing (..)
-import Ports
+import Html
+import Messages exposing (Msg)
+import Model exposing (Model)
+import Recaptcha.Ports
 import Subscriptions
-import Update exposing (update)
-import View exposing (view)
+import Update
+import View
 
 
 main : Program Never Model Msg
 main =
     Html.program
         { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
+        , view = View.view
+        , update = Update.update
+        , subscriptions = Subscriptions.subscriptions
         }
 
 
+{-|
+  "recaptcha" is the id of the HTML container where we want to render the widget
+-}
 init : ( Model, Cmd Msg )
 init =
-    initialModel ! [ Ports.initRecaptcha "recaptcha" ]
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Subscriptions.setRecaptchaToken SetRecaptchaToken
+    ( Model.initialModel, Recaptcha.Ports.initRecaptcha "recaptcha" )

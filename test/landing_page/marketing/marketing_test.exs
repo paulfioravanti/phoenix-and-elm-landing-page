@@ -33,12 +33,14 @@ defmodule LandingPage.MarketingTest do
     end
 
     test "subscribe/1 with valid data and token creates a lead" do
-      assert {:ok, %Lead{}} = Marketing.subscribe(@valid_attrs)
+      assert {:ok, %Lead{}} = Marketing.subscribe_lead(@valid_attrs)
     end
 
     test "subscribe/1 with invalid token returns error changeset" do
       params = %{@valid_attrs | "recaptcha_token" => "invalid"}
-      assert {:error, :invalid_recaptcha_token} = Marketing.subscribe(params)
+
+      assert {:error, :invalid_recaptcha_token} =
+               Marketing.subscribe_lead(params)
     end
   end
 end

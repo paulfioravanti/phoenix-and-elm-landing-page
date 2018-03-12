@@ -6,7 +6,8 @@ import Commands as Commands
 import Decoders exposing (validationErrorsDecoder)
 import Messages exposing (Msg(..))
 import Model exposing (..)
-import Ports
+import Recaptcha.Ports
+import Recaptcha.Update
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -32,19 +33,19 @@ update msg model =
                 in
                     { model | subscribeForm = newSubscribeForm } ! [ Commands.subscribe newSubscribeForm ]
 
+            RecaptchaMsg msg ->
+                Recaptcha.Update.update msg model subscribeForm formFields
+
             SubscribeResponse (Ok result) ->
                 { model | subscribeForm = Success } ! []
 
             SubscribeResponse (Err (BadStatus response)) ->
                 case Decode.decodeString validationErrorsDecoder response.body of
                     Ok validationErrors ->
-                        { model | subscribeForm = Invalid { formFields | recaptchaToken = Nothing } validationErrors } ! [ Ports.resetRecaptcha () ]
+                        { model | subscribeForm = Invalid { formFields | recaptchaToken = Nothing } validationErrors } ! [ Recaptcha.Ports.resetRecaptcha () ]
 
                     Err error ->
-                        { model | subscribeForm = Errored { formFields | recaptchaToken = Nothing } "Oops! Something went wrong!" } ! [ Ports.resetRecaptcha () ]
+                        { model | subscribeForm = Errored { formFields | recaptchaToken = Nothing } "Oops! Something went wrong!" } ! [ Recaptcha.Ports.resetRecaptcha () ]
 
             SubscribeResponse (Err error) ->
-                { model | subscribeForm = Errored { formFields | recaptchaToken = Nothing } "Oops! Something went wrong!" } ! [ Ports.resetRecaptcha () ]
-
-            SetRecaptchaToken token ->
-                { model | subscribeForm = Editing { formFields | recaptchaToken = Just token } } ! []
+                { model | subscribeForm = Errored { formFields | recaptchaToken = Nothing } "Oops! Something went wrong!" } ! [ Recaptcha.Ports.resetRecaptcha () ]
