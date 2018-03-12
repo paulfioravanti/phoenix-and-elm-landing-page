@@ -4,6 +4,7 @@ import Html exposing (Html)
 import Messages exposing (Msg(..))
 import Model exposing (..)
 import Ports
+import Subscriptions
 import Update exposing (update)
 import View exposing (view)
 
@@ -25,4 +26,4 @@ init =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Ports.setRecaptchaToken SetRecaptchaToken
+    Subscriptions.setRecaptchaToken SetRecaptchaToken

@@ -1,16 +1,9 @@
 port module Ports exposing (..)
 
--- OUT PORTS
+-- Browser-bound (-> Cmd msg)
 
 
 port initRecaptcha : String -> Cmd msg
 
 
 port resetRecaptcha : () -> Cmd msg
-
-
-
--- IN PORTS
-
-
-port setRecaptchaToken : (String -> msg) -> Sub msg
