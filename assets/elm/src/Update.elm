@@ -5,6 +5,7 @@ import Http exposing (Error(..))
 import Json.Decode as Decode
 import Messages exposing (Msg(..))
 import Model exposing (..)
+import Ports
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -29,13 +30,16 @@ update msg model =
             SubscribeResponse (Ok result) ->
                 { model | subscribeForm = Success } ! []
 
+            SetRecaptchaToken token ->
+                { model | subscribeForm = Editing { formFields | recaptchaToken = Just token } } ! []
+
             SubscribeResponse (Err (BadStatus response)) ->
                 case Decode.decodeString validationErrorsDecoder response.body of
                     Ok validationErrors ->
-                        { model | subscribeForm = Invalid formFields validationErrors } ! []
+                        { model | subscribeForm = Invalid { formFields | recaptchaToken = Nothing } validationErrors } ! [ Ports.resetRecaptcha () ]
 
                     Err error ->
-                        { model | subscribeForm = Errored formFields "Oops! Something went wrong!" } ! []
+                        { model | subscribeForm = Errored { formFields | recaptchaToken = Nothing } "Oops! Something went wrong!" } ! [ Ports.resetRecaptcha () ]
 
             SubscribeResponse (Err error) ->
-                { model | subscribeForm = Errored formFields "Oops! Something went wrong!" } ! []
+                { model | subscribeForm = Errored { formFields | recaptchaToken = Nothing } "Oops! Something went wrong!" } ! [ Ports.resetRecaptcha () ]

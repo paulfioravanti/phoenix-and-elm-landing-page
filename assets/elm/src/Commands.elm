@@ -1,4 +1,4 @@
-module Commands exposing (..)
+module Commands exposing (subscribe)
 
 import Http
 import Json.Decode as JD
@@ -32,12 +32,15 @@ post formFields =
 
 
 encodeModel : FormFields -> JD.Value
-encodeModel { fullName, email } =
+encodeModel { fullName, email, recaptchaToken } =
     JE.object
         [ ( "lead"
           , JE.object
                 [ ( "full_name", JE.string fullName )
                 , ( "email", JE.string email )
+                , ( "recaptcha_token"
+                  , JE.string (Maybe.withDefault "" recaptchaToken)
+                  )
                 ]
           )
         ]

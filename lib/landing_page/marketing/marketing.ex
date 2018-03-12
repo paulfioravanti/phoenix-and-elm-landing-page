@@ -4,9 +4,32 @@ defmodule LandingPage.Marketing do
   """
 
   import Ecto.Query, warn: false
+  alias LandingPage.Marketing.Lead
   alias LandingPage.Repo
 
-  alias LandingPage.Marketing.Lead
+  @google_recaptcha_client Application.get_env(:landing_page, :google_recaptcha)[
+                             :client
+                           ]
+
+  def subscribe(lead_params) do
+    token = Map.get(lead_params, "recaptcha_token")
+
+    with %Ecto.Changeset{valid?: true} = changeset <-
+           Lead.changeset(%Lead{}, lead_params),
+         {:ok, %{success: true}} <- @google_recaptcha_client.verify(token),
+         {:ok, lead} <- Repo.insert(changeset) do
+      {:ok, lead}
+    else
+      {:ok, %{success: false}} ->
+        {:error, :invalid_recaptcha_token}
+
+      {:error, response} ->
+        {:error, response}
+
+      other ->
+        {:error, other}
+    end
+  end
 
   @doc """
   Returns the list of leads.

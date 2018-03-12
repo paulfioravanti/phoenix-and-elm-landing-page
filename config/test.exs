@@ -9,6 +9,11 @@ config :landing_page, LandingPageWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :landing_page,
+  google_recaptcha: [
+    client: LandingPage.Clients.GoogleRecaptchaMock
+  ]
+
 # Configure your database
 config :landing_page, LandingPage.Repo,
   adapter: Ecto.Adapters.Postgres,

@@ -38,7 +38,7 @@ formView subscribeForm =
         validationErrors =
             extractValidationErrors subscribeForm
 
-        { fullName, email } =
+        { fullName, email, recaptchaToken } =
             extractFormFields subscribeForm
 
         saving =
@@ -58,7 +58,16 @@ formView subscribeForm =
                     False
 
         buttonDisabled =
-            fullName == "" || email == "" || saving || invalid
+            fullName
+                == ""
+                || email
+                == ""
+                || recaptchaToken
+                == Nothing
+                || recaptchaToken
+                == Just ""
+                || saving
+                || invalid
     in
         Html.div
             [ Html.class "content" ]
@@ -107,6 +116,13 @@ formView subscribeForm =
                 , Html.div
                     [ Html.class "field" ]
                     [ Html.div
+                        [ Html.id "recaptcha" ]
+                        []
+                    , validationErrorView "recaptcha_token" validationErrors
+                    ]
+                , Html.div
+                    [ Html.class "field" ]
+                    [ Html.div
                         [ Html.class "control" ]
                         [ Html.button
                             [ Html.class "button is-primary is-medium"
@@ -141,4 +157,17 @@ formError subscribeForm =
                 [ Html.text message ]
 
         _ ->
+            Html.text ""
+
+
+validationErrorView : String -> ValidationErrors -> Html Msg
+validationErrorView key validationErrors =
+    case Dict.get key validationErrors of
+        Just error ->
+            error
+                |> List.map Html.text
+                |> Html.p
+                    [ Html.class "help is-danger" ]
+
+        Nothing ->
             Html.text ""

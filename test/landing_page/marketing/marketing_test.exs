@@ -6,9 +6,12 @@ defmodule LandingPage.MarketingTest do
   describe "leads" do
     alias LandingPage.Marketing.Lead
 
-    @valid_attrs %{email: "some email", full_name: "some full_name"}
-    @update_attrs %{email: "some updated email", full_name: "some updated full_name"}
-    @invalid_attrs %{email: nil, full_name: nil}
+    @valid_attrs %{
+      "email" => "some email",
+      "full_name" => "some full_name",
+      "recaptcha_token" => "foo"
+    }
+    @invalid_attrs %{email: nil, full_name: nil, recaptcha_token: nil}
 
     def lead_fixture(attrs \\ %{}) do
       {:ok, lead} =
@@ -17,16 +20,6 @@ defmodule LandingPage.MarketingTest do
         |> Marketing.create_lead()
 
       lead
-    end
-
-    test "list_leads/0 returns all leads" do
-      lead = lead_fixture()
-      assert Marketing.list_leads() == [lead]
-    end
-
-    test "get_lead!/1 returns the lead with given id" do
-      lead = lead_fixture()
-      assert Marketing.get_lead!(lead.id) == lead
     end
 
     test "create_lead/1 with valid data creates a lead" do
@@ -39,29 +32,13 @@ defmodule LandingPage.MarketingTest do
       assert {:error, %Ecto.Changeset{}} = Marketing.create_lead(@invalid_attrs)
     end
 
-    test "update_lead/2 with valid data updates the lead" do
-      lead = lead_fixture()
-      assert {:ok, lead} = Marketing.update_lead(lead, @update_attrs)
-      assert %Lead{} = lead
-      assert lead.email == "some updated email"
-      assert lead.full_name == "some updated full_name"
+    test "subscribe/1 with valid data and token creates a lead" do
+      assert {:ok, %Lead{}} = Marketing.subscribe(@valid_attrs)
     end
 
-    test "update_lead/2 with invalid data returns error changeset" do
-      lead = lead_fixture()
-      assert {:error, %Ecto.Changeset{}} = Marketing.update_lead(lead, @invalid_attrs)
-      assert lead == Marketing.get_lead!(lead.id)
-    end
-
-    test "delete_lead/1 deletes the lead" do
-      lead = lead_fixture()
-      assert {:ok, %Lead{}} = Marketing.delete_lead(lead)
-      assert_raise Ecto.NoResultsError, fn -> Marketing.get_lead!(lead.id) end
-    end
-
-    test "change_lead/1 returns a lead changeset" do
-      lead = lead_fixture()
-      assert %Ecto.Changeset{} = Marketing.change_lead(lead)
+    test "subscribe/1 with invalid token returns error changeset" do
+      params = %{@valid_attrs | "recaptcha_token" => "invalid"}
+      assert {:error, :invalid_recaptcha_token} = Marketing.subscribe(params)
     end
   end
 end
