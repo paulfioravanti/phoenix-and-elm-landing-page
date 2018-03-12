@@ -35,11 +35,11 @@ view { subscribeForm } =
 formView : SubscribeForm -> Html Msg
 formView subscribeForm =
     let
-        validationErrors =
-            extractValidationErrors subscribeForm
-
         { fullName, email, recaptchaToken } =
             extractFormFields subscribeForm
+
+        validationErrors =
+            extractValidationErrors subscribeForm
 
         saving =
             case subscribeForm of
@@ -87,6 +87,7 @@ formView subscribeForm =
                         [ Html.input
                             [ Html.classList
                                 [ ( "input is-medium", True )
+                                , ( "is-danger", Dict.member "full_name" validationErrors )
                                 ]
                             , Html.placeholder "My name is..."
                             , Html.required True
@@ -94,6 +95,7 @@ formView subscribeForm =
                             , Html.onInput HandleFullNameInput
                             ]
                             []
+                        , validationErrorView "full_name" validationErrors
                         ]
                     ]
                 , Html.div
@@ -103,6 +105,7 @@ formView subscribeForm =
                         [ Html.input
                             [ Html.classList
                                 [ ( "input is-medium", True )
+                                , ( "is-danger", Dict.member "email" validationErrors )
                                 ]
                             , Html.type_ "email"
                             , Html.placeholder "My email address is..."
@@ -111,6 +114,7 @@ formView subscribeForm =
                             , Html.onInput HandleEmailInput
                             ]
                             []
+                        , validationErrorView "email" validationErrors
                         ]
                     ]
                 , Html.div
@@ -148,18 +152,6 @@ formView subscribeForm =
             ]
 
 
-formError : SubscribeForm -> Html Msg
-formError subscribeForm =
-    case subscribeForm of
-        Errored _ message ->
-            Html.div
-                [ Html.class "notification is-danger fade-in" ]
-                [ Html.text message ]
-
-        _ ->
-            Html.text ""
-
-
 validationErrorView : String -> ValidationErrors -> Html Msg
 validationErrorView key validationErrors =
     case Dict.get key validationErrors of
@@ -170,4 +162,16 @@ validationErrorView key validationErrors =
                     [ Html.class "help is-danger" ]
 
         Nothing ->
+            Html.text ""
+
+
+formError : SubscribeForm -> Html Msg
+formError subscribeForm =
+    case subscribeForm of
+        Errored _ message ->
+            Html.div
+                [ Html.class "notification is-danger fade-in" ]
+                [ Html.text message ]
+
+        _ ->
             Html.text ""

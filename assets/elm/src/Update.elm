@@ -1,8 +1,9 @@
 module Update exposing (update)
 
-import Decoders exposing (..)
 import Http exposing (Error(..))
 import Json.Decode as Decode
+import Commands as Commands
+import Decoders exposing (validationErrorsDecoder)
 import Messages exposing (Msg(..))
 import Model exposing (..)
 import Ports
@@ -25,13 +26,14 @@ update msg model =
                 { model | subscribeForm = Editing { formFields | email = value } } ! []
 
             HandleFormSubmit ->
-                { model | subscribeForm = Saving formFields } ! []
+                let
+                    newSubscribeForm =
+                        Saving formFields
+                in
+                    { model | subscribeForm = newSubscribeForm } ! [ Commands.subscribe newSubscribeForm ]
 
             SubscribeResponse (Ok result) ->
                 { model | subscribeForm = Success } ! []
-
-            SetRecaptchaToken token ->
-                { model | subscribeForm = Editing { formFields | recaptchaToken = Just token } } ! []
 
             SubscribeResponse (Err (BadStatus response)) ->
                 case Decode.decodeString validationErrorsDecoder response.body of
@@ -43,3 +45,6 @@ update msg model =
 
             SubscribeResponse (Err error) ->
                 { model | subscribeForm = Errored { formFields | recaptchaToken = Nothing } "Oops! Something went wrong!" } ! [ Ports.resetRecaptcha () ]
+
+            SetRecaptchaToken token ->
+                { model | subscribeForm = Editing { formFields | recaptchaToken = Just token } } ! []

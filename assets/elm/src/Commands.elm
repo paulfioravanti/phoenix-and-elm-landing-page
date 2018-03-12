@@ -38,9 +38,7 @@ encodeModel { fullName, email, recaptchaToken } =
           , JE.object
                 [ ( "full_name", JE.string fullName )
                 , ( "email", JE.string email )
-                , ( "recaptcha_token"
-                  , JE.string (Maybe.withDefault "" recaptchaToken)
-                  )
+                , ( "recaptcha_token", JE.string <| Maybe.withDefault "" recaptchaToken )
                 ]
           )
         ]
