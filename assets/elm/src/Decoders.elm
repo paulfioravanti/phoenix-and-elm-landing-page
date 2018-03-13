@@ -1,14 +1,9 @@
-module Decoders exposing (postResponseDecoder, validationErrorsDecoder)
+module Decoders exposing (validationErrorsDecoder)
 
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (dict, list, string)
 import Model exposing (ValidationErrors)
-
-
-postResponseDecoder : Decode.Decoder Bool
-postResponseDecoder =
-    Decode.succeed True
 
 
 validationErrorsDecoder : Decode.Decoder ValidationErrors
 validationErrorsDecoder =
-    Decode.dict (Decode.list Decode.string)
+    dict (list string)

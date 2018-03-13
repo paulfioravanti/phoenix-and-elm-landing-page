@@ -1,44 +1,16 @@
 module Commands exposing (subscribe)
 
 import Http
-import Json.Decode as JD
-import Json.Encode as JE
-import Decoders exposing (postResponseDecoder)
-import Messages exposing (Msg(..))
-import Model exposing (SubscribeForm(..), FormFields)
+import Lead.Request as Request
+import Messages exposing (Msg(SubscribeResponse))
+import Model exposing (SubscribeForm, SubscribeForm(Saving))
 
 
 subscribe : SubscribeForm -> Cmd Msg
 subscribe subscribeForm =
     case subscribeForm of
         Saving formFields ->
-            Http.send SubscribeResponse (post formFields)
+            Http.send SubscribeResponse (Request.submitLead formFields)
 
         _ ->
             Cmd.none
-
-
-post : FormFields -> Http.Request Bool
-post formFields =
-    Http.request
-        { method = "POST"
-        , headers = []
-        , url = "/api/v1/leads"
-        , body = Http.jsonBody (encodeModel formFields)
-        , expect = Http.expectJson postResponseDecoder
-        , timeout = Nothing
-        , withCredentials = False
-        }
-
-
-encodeModel : FormFields -> JD.Value
-encodeModel { fullName, email, recaptchaToken } =
-    JE.object
-        [ ( "lead"
-          , JE.object
-                [ ( "full_name", JE.string fullName )
-                , ( "email", JE.string email )
-                , ( "recaptcha_token", JE.string <| Maybe.withDefault "" recaptchaToken )
-                ]
-          )
-        ]
