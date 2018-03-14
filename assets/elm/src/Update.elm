@@ -1,17 +1,17 @@
 module Update exposing (update)
 
 import Commands
+import Lead.Update
 import Messages
     exposing
         ( Msg
-            ( FullNameChanged
-            , EmailChanged
-            , FormSubmitted
-            , RecaptchaMsg
+            ( FormSubmitted
             , LeadMsg
+            , RecaptchaMsg
+            , SubscribeFormMsg
             )
         )
-import Model exposing (Model, SubscribeForm(Editing, Saving))
+import Model exposing (Model, SubscribeForm(Saving))
 import Recaptcha.Update
 import SubscribeForm.Update
 
@@ -26,20 +26,6 @@ update msg model =
             Model.extractFormFields subscribeForm
     in
         case msg of
-            FullNameChanged value ->
-                ( { model
-                    | subscribeForm = Editing { formFields | fullName = value }
-                  }
-                , Cmd.none
-                )
-
-            EmailChanged value ->
-                ( { model
-                    | subscribeForm = Editing { formFields | email = value }
-                  }
-                , Cmd.none
-                )
-
             FormSubmitted ->
                 let
                     newSubscribeForm =
@@ -49,8 +35,11 @@ update msg model =
                     , Commands.subscribe newSubscribeForm
                     )
 
+            SubscribeFormMsg msg ->
+                SubscribeForm.Update.update msg model formFields
+
             RecaptchaMsg msg ->
                 Recaptcha.Update.update msg model subscribeForm formFields
 
             LeadMsg msg ->
-                SubscribeForm.Update.update msg model subscribeForm formFields
+                Lead.Update.update msg model subscribeForm formFields

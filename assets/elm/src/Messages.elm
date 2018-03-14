@@ -2,11 +2,11 @@ module Messages exposing (Msg(..))
 
 import Lead.Messages exposing (LeadMsg)
 import Recaptcha.Messages exposing (RecaptchaMsg)
+import SubscribeForm.Messages exposing (SubscribeFormMsg)
 
 
 type Msg
-    = FullNameChanged String
-    | EmailChanged String
+    = SubscribeFormMsg SubscribeFormMsg
     | FormSubmitted
     | LeadMsg LeadMsg
     | RecaptchaMsg RecaptchaMsg

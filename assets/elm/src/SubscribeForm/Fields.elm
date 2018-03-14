@@ -20,8 +20,12 @@ import Html.Attributes
         , value
         )
 import Html.Events exposing (onInput)
-import Messages exposing (Msg(FullNameChanged, EmailChanged))
+import Messages exposing (Msg(SubscribeFormMsg))
 import Model exposing (ValidationErrors)
+import SubscribeForm.Messages
+    exposing
+        ( SubscribeFormMsg(FullNameChanged, EmailChanged)
+        )
 
 
 fullNameField : String -> Dict String (List String) -> Html Msg
@@ -36,7 +40,7 @@ fullNameField fullName validationErrors =
                 , placeholder "My name is..."
                 , required True
                 , value fullName
-                , onInput FullNameChanged
+                , onInput (SubscribeFormMsg << FullNameChanged)
                 ]
                 []
             , validationErrorMessage "full_name" validationErrors
@@ -57,7 +61,7 @@ emailField email validationErrors =
                 , placeholder "My email address is..."
                 , required True
                 , value email
-                , onInput EmailChanged
+                , onInput (SubscribeFormMsg << EmailChanged)
                 ]
                 []
             , validationErrorMessage "email" validationErrors
