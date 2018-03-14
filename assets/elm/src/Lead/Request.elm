@@ -13,7 +13,7 @@ submitLead formFields =
         , headers = []
         , url = "/api/v1/leads"
         , body = Http.jsonBody (Lead.Encoder.encoder formFields)
-        , expect = Http.expectJson Lead.Decoder.decoder
+        , expect = Http.expectJson Lead.Decoder.successDecoder
         , timeout = Nothing
         , withCredentials = False
         }
