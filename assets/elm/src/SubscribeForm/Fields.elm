@@ -79,7 +79,7 @@ recaptchaField validationErrors =
 
 
 submitButton : Bool -> Bool -> Html msg
-submitButton saving buttonDisabled =
+submitButton submitting buttonDisabled =
     div [ class "field" ]
         [ div [ class "control" ]
             [ button
@@ -87,8 +87,8 @@ submitButton saving buttonDisabled =
                 [ span [ class "icon" ]
                     [ i
                         [ classList
-                            [ ( "fa fa-check", not saving )
-                            , ( "fa fa-circle-o-notch fa-spin", saving )
+                            [ ( "fa fa-check", not submitting )
+                            , ( "fa fa-circle-o-notch fa-spin", submitting )
                             ]
                         ]
                         []

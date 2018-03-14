@@ -14,6 +14,10 @@ successDecoder =
     Decode.succeed True
 
 
+{-|
+This handles return of server-side validation errors delivered
+in a JSON payload.
+-}
 errorsDecoder : Decode.Decoder ValidationErrors
 errorsDecoder =
     dict (list string)

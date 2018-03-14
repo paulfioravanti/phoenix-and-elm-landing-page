@@ -32,7 +32,8 @@ handleBadStatus : Model -> Response String -> FormFields -> ( Model, Cmd Msg )
 handleBadStatus model response formFields =
     let
         validationErrors =
-            response.body
+            response
+                |> .body
                 |> Decode.decodeString Lead.Decoder.errorsDecoder
     in
         case validationErrors of

@@ -1,16 +1,16 @@
-module Commands exposing (subscribe)
+module Lead.Commands exposing (submitLead)
 
 import Http
 import Lead.Messages exposing (LeadMsg(LeadSubmission))
 import Lead.Request as Request
 import Messages exposing (Msg(LeadMsg))
-import SubscribeForm.Model exposing (SubscribeForm, SubscribeForm(Saving))
+import SubscribeForm.Model exposing (SubscribeForm, SubscribeForm(Submitting))
 
 
-subscribe : SubscribeForm -> Cmd Msg
-subscribe subscribeForm =
+submitLead : SubscribeForm -> Cmd Msg
+submitLead subscribeForm =
     case subscribeForm of
-        Saving formFields ->
+        Submitting formFields ->
             formFields
                 |> Request.submitLead
                 |> Http.send LeadSubmission

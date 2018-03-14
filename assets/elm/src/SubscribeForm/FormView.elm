@@ -4,10 +4,12 @@ import Html exposing (Html, div, form, h3, p, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onSubmit)
 import Messages exposing (Msg(SubscribeFormMsg))
-import Model
 import SubscribeForm.Fields as Fields
 import SubscribeForm.Messages exposing (SubscribeFormMsg(FormSubmitted))
-import SubscribeForm.Model exposing (SubscribeForm(Errored, Invalid, Saving))
+import SubscribeForm.Model
+    exposing
+        ( SubscribeForm(Errored, Invalid, Submitting)
+        )
 import SubscribeForm.Utilities as Utilities
 
 
@@ -20,9 +22,9 @@ view subscribeForm =
         validationErrors =
             Utilities.extractValidationErrors subscribeForm
 
-        saving =
+        submitting =
             case subscribeForm of
-                Saving _ ->
+                Submitting _ ->
                     True
 
                 _ ->
@@ -45,7 +47,7 @@ view subscribeForm =
                 == Nothing
                 || recaptchaToken
                 == Just ""
-                || saving
+                || submitting
                 || invalid
     in
         div [ class "content" ]
@@ -58,7 +60,7 @@ view subscribeForm =
                 [ Fields.fullNameField fullName validationErrors
                 , Fields.emailField email validationErrors
                 , Fields.recaptchaField validationErrors
-                , Fields.submitButton saving buttonDisabled
+                , Fields.submitButton submitting buttonDisabled
                 ]
             ]
 

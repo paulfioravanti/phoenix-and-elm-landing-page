@@ -4,8 +4,8 @@ import Html exposing (Html)
 import Messages exposing (Msg)
 import Model exposing (Model)
 import SubscribeForm.FormView
-import SubscribeForm.SuccessView
 import SubscribeForm.Model exposing (SubscribeForm(Success))
+import SubscribeForm.SuccessView
 
 
 view : Model -> Html Msg

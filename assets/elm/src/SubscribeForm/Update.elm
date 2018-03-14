@@ -1,6 +1,6 @@
 module SubscribeForm.Update exposing (update)
 
-import Commands
+import Lead.Commands
 import Messages exposing (Msg)
 import Model exposing (Model)
 import SubscribeForm.Messages
@@ -11,15 +11,11 @@ import SubscribeForm.Model
     exposing
         ( FormFields
         , SubscribeForm
-        , SubscribeForm(Editing, Saving)
+        , SubscribeForm(Editing, Submitting)
         )
 
 
-update :
-    SubscribeFormMsg
-    -> Model
-    -> FormFields
-    -> ( Model, Cmd Msg )
+update : SubscribeFormMsg -> Model -> FormFields -> ( Model, Cmd Msg )
 update msg model formFields =
     case msg of
         FullNameChanged value ->
@@ -39,8 +35,8 @@ update msg model formFields =
         FormSubmitted ->
             let
                 newSubscribeForm =
-                    Saving formFields
+                    Submitting formFields
             in
                 ( { model | subscribeForm = newSubscribeForm }
-                , Commands.subscribe newSubscribeForm
+                , Lead.Commands.submitLead newSubscribeForm
                 )

@@ -1,6 +1,5 @@
 module Model exposing (Model, initialModel)
 
-import Dict exposing (Dict)
 import SubscribeForm.Model exposing (SubscribeForm, SubscribeForm(Editing))
 
 

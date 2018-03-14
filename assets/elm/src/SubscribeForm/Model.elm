@@ -23,7 +23,7 @@ type alias ValidationErrors =
 
 type SubscribeForm
     = Editing FormFields
-    | Saving FormFields
+    | Submitting FormFields
     | Invalid FormFields ValidationErrors
     | Errored FormFields String
     | Success

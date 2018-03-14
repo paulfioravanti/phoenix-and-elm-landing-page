@@ -9,7 +9,7 @@ import SubscribeForm.Model
     exposing
         ( FormFields
         , SubscribeForm
-        , SubscribeForm(Editing, Errored, Invalid, Saving, Success)
+        , SubscribeForm(Editing, Errored, Invalid, Submitting, Success)
         , ValidationErrors
         )
 
@@ -23,7 +23,7 @@ extractFormFields subscribeForm =
         Editing formFields ->
             formFields
 
-        Saving formFields ->
+        Submitting formFields ->
             formFields
 
         Invalid formFields _ ->
