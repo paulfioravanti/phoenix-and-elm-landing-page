@@ -11,7 +11,9 @@ subscribe : SubscribeForm -> Cmd Msg
 subscribe subscribeForm =
     case subscribeForm of
         Saving formFields ->
-            Http.send LeadSubmission (Request.submitLead formFields)
+            formFields
+                |> Request.submitLead
+                |> Http.send LeadSubmission
                 |> Cmd.map LeadMsg
 
         _ ->
