@@ -65,6 +65,6 @@ config :landing_page, LandingPage.Repo,
 
 config :landing_page,
   google_recaptcha: [
-    secret_key: "6LccDkwUAAAAANclytrTdhbmQeEjH_KO9EU1EUSo",
+    secret_key: "YOUR_SECRET_KEY_HERE",
     client: LandingPage.Clients.GoogleRecaptchaHttp
   ]

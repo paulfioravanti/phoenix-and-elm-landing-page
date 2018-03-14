@@ -13,7 +13,7 @@ so just consider this another take on what is a great example app.
 ```sh
 git clone git@github.com:paulfioravanti/phoenix-and-elm-landing-page.git
 cd phoenix-and-elm-landing-page
-cp config/config.example.exs config/config.exs
+cp config/dev.example.exs config/dev.exs
 ```
 
 Then, put in your Captcha secret key.
