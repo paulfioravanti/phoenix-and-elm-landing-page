@@ -10,6 +10,14 @@ what I've done here.  I've isolated out `Lead`, `Recaptcha`, and `SubscribeForm`
 concerns, and moved a lot of code around in an attempt to re-architect the app,
 so just consider this another take on what is a great example app.
 
+```sh
+git clone git@github.com:paulfioravanti/phoenix-and-elm-landing-page.git
+cd phoenix-and-elm-landing-page
+cp config/config.example.exs config/config.exs
+```
+
+Then, put in your Captcha secret key.
+
 [App blog posts]: http://codeloveandboards.com/blog/2017/12/02/phoenix-elm-landing-page-pt-1/
 [Phoenix and Elm landing page app]: https://github.com/bigardone/phoenix-and-elm-landing-page
 [Ricardo García Vega]: https://twitter.com/bigardone

@@ -23,7 +23,7 @@ config :logger, :console,
 
 config :landing_page,
   google_recaptcha: [
-    secret_key: "6LccDkwUAAAAANclytrTdhbmQeEjH_KO9EU1EUSo",
+    secret_key: "SECRET_KEY_GOES_HERE",
     client: LandingPage.Clients.GoogleRecaptchaHttp
   ]
 
