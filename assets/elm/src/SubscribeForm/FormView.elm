@@ -1,48 +1,11 @@
 module SubscribeForm.FormView exposing (view)
 
-import Dict exposing (Dict)
-import Html
-    exposing
-        ( Html
-        , button
-        , div
-        , form
-        , h3
-        , i
-        , input
-        , p
-        , span
-        , text
-        )
-import Html.Attributes
-    exposing
-        ( class
-        , classList
-        , disabled
-        , id
-        , placeholder
-        , required
-        , type_
-        , value
-        )
-import Html.Events exposing (onInput, onSubmit)
-import Messages
-    exposing
-        ( Msg
-            ( HandleEmailInput
-            , HandleFormSubmit
-            , HandleFullNameInput
-            )
-        )
-import Model
-    exposing
-        ( SubscribeForm
-            ( Errored
-            , Invalid
-            , Saving
-            )
-        , ValidationErrors
-        )
+import Html exposing (Html, div, form, h3, p, text)
+import Html.Attributes exposing (class)
+import Html.Events exposing (onSubmit)
+import Messages exposing (Msg(HandleFormSubmit))
+import Model exposing (SubscribeForm(Errored, Invalid, Saving))
+import SubscribeForm.Fields as Fields
 
 
 view : SubscribeForm -> Html Msg
@@ -89,64 +52,10 @@ view subscribeForm =
                 [ text "Subscribe to stay updated" ]
             , formError subscribeForm
             , form [ onSubmit HandleFormSubmit ]
-                [ div [ class "field" ]
-                    [ div [ class "control" ]
-                        [ input
-                            [ classList
-                                [ ( "input is-medium", True )
-                                , ( "is-danger", Dict.member "full_name" validationErrors )
-                                ]
-                            , placeholder "My name is..."
-                            , required True
-                            , value fullName
-                            , onInput HandleFullNameInput
-                            ]
-                            []
-                        , validationErrorView "full_name" validationErrors
-                        ]
-                    ]
-                , div [ class "field" ]
-                    [ div [ class "control" ]
-                        [ input
-                            [ classList
-                                [ ( "input is-medium", True )
-                                , ( "is-danger", Dict.member "email" validationErrors )
-                                ]
-                            , type_ "email"
-                            , placeholder "My email address is..."
-                            , required True
-                            , value email
-                            , onInput HandleEmailInput
-                            ]
-                            []
-                        , validationErrorView "email" validationErrors
-                        ]
-                    ]
-                , div [ class "field" ]
-                    [ div [ id "recaptcha" ]
-                        []
-                    , validationErrorView "recaptcha_token" validationErrors
-                    ]
-                , div [ class "field" ]
-                    [ div [ class "control" ]
-                        [ button
-                            [ class "button is-primary is-medium"
-                            , disabled buttonDisabled
-                            ]
-                            [ span [ class "icon" ]
-                                [ i
-                                    [ classList
-                                        [ ( "fa fa-check", not saving )
-                                        , ( "fa fa-circle-o-notch fa-spin", saving )
-                                        ]
-                                    ]
-                                    []
-                                ]
-                            , span []
-                                [ text "Subscribe me" ]
-                            ]
-                        ]
-                    ]
+                [ Fields.fullNameField fullName validationErrors
+                , Fields.emailField email validationErrors
+                , Fields.recaptchaField validationErrors
+                , Fields.submitButton saving buttonDisabled
                 ]
             ]
 
@@ -159,16 +68,4 @@ formError subscribeForm =
                 [ text message ]
 
         _ ->
-            text ""
-
-
-validationErrorView : String -> ValidationErrors -> Html Msg
-validationErrorView key validationErrors =
-    case Dict.get key validationErrors of
-        Just error ->
-            error
-                |> List.map text
-                |> p [ class "help is-danger" ]
-
-        Nothing ->
             text ""
