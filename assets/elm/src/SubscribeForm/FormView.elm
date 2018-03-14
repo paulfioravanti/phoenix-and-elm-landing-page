@@ -7,16 +7,17 @@ import Messages exposing (Msg(FormSubmitted))
 import Model
 import SubscribeForm.Model exposing (SubscribeForm(Errored, Invalid, Saving))
 import SubscribeForm.Fields as Fields
+import SubscribeForm.Utilities as Utilities
 
 
 view : SubscribeForm -> Html Msg
 view subscribeForm =
     let
         { fullName, email, recaptchaToken } =
-            Model.extractFormFields subscribeForm
+            Utilities.extractFormFields subscribeForm
 
         validationErrors =
-            Model.extractValidationErrors subscribeForm
+            Utilities.extractValidationErrors subscribeForm
 
         saving =
             case subscribeForm of

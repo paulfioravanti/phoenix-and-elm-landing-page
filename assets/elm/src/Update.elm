@@ -15,6 +15,7 @@ import Model exposing (Model)
 import Recaptcha.Update
 import SubscribeForm.Model exposing (SubscribeForm(Saving))
 import SubscribeForm.Update
+import SubscribeForm.Utilities
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -24,7 +25,7 @@ update msg model =
             model.subscribeForm
 
         formFields =
-            Model.extractFormFields subscribeForm
+            SubscribeForm.Utilities.extractFormFields subscribeForm
     in
         case msg of
             FormSubmitted ->

@@ -4,6 +4,7 @@ module SubscribeForm.Model
         , SubscribeForm
         , SubscribeForm(..)
         , ValidationErrors
+        , emptyFormFields
         )
 
 import Dict exposing (Dict)
@@ -26,3 +27,11 @@ type SubscribeForm
     | Invalid FormFields ValidationErrors
     | Errored FormFields String
     | Success
+
+
+emptyFormFields : FormFields
+emptyFormFields =
+    { fullName = ""
+    , email = ""
+    , recaptchaToken = Nothing
+    }
