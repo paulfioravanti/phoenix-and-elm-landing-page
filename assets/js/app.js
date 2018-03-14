@@ -22,7 +22,7 @@ import "phoenix_html"
 import Elm from "./elm/main";
 import * as Recaptcha from "./lib/recaptcha";
 
-window.onloadCallback = () => {
+window.recaptchaLoaded = () => {
   const formContainer = document.querySelector("#form_container");
 
   if (formContainer) {
