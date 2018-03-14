@@ -3,7 +3,7 @@ module SubscribeForm.FormView exposing (view)
 import Html exposing (Html, div, form, h3, p, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onSubmit)
-import Messages exposing (Msg(HandleFormSubmit))
+import Messages exposing (Msg(FormSubmitted))
 import Model exposing (SubscribeForm(Errored, Invalid, Saving))
 import SubscribeForm.Fields as Fields
 
@@ -51,7 +51,7 @@ view subscribeForm =
             , p []
                 [ text "Subscribe to stay updated" ]
             , formError subscribeForm
-            , form [ onSubmit HandleFormSubmit ]
+            , form [ onSubmit FormSubmitted ]
                 [ Fields.fullNameField fullName validationErrors
                 , Fields.emailField email validationErrors
                 , Fields.recaptchaField validationErrors

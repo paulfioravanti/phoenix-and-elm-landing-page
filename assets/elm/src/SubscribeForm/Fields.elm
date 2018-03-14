@@ -7,17 +7,7 @@ module SubscribeForm.Fields
         )
 
 import Dict exposing (Dict)
-import Html
-    exposing
-        ( Html
-        , button
-        , div
-        , i
-        , input
-        , p
-        , span
-        , text
-        )
+import Html exposing (Html, button, div, i, input, p, span, text)
 import Html.Attributes
     exposing
         ( class
@@ -30,7 +20,7 @@ import Html.Attributes
         , value
         )
 import Html.Events exposing (onInput)
-import Messages exposing (Msg(HandleFullNameInput, HandleEmailInput))
+import Messages exposing (Msg(FullNameChanged, EmailChanged))
 import Model exposing (ValidationErrors)
 
 
@@ -46,10 +36,10 @@ fullNameField fullName validationErrors =
                 , placeholder "My name is..."
                 , required True
                 , value fullName
-                , onInput HandleFullNameInput
+                , onInput FullNameChanged
                 ]
                 []
-            , validationErrorView "full_name" validationErrors
+            , validationErrorMessage "full_name" validationErrors
             ]
         ]
 
@@ -67,10 +57,10 @@ emailField email validationErrors =
                 , placeholder "My email address is..."
                 , required True
                 , value email
-                , onInput HandleEmailInput
+                , onInput EmailChanged
                 ]
                 []
-            , validationErrorView "email" validationErrors
+            , validationErrorMessage "email" validationErrors
             ]
         ]
 
@@ -80,7 +70,7 @@ recaptchaField validationErrors =
     div [ class "field" ]
         [ div [ id "recaptcha" ]
             []
-        , validationErrorView "recaptcha_token" validationErrors
+        , validationErrorMessage "recaptcha_token" validationErrors
         ]
 
 
@@ -106,13 +96,17 @@ submitButton saving buttonDisabled =
         ]
 
 
-validationErrorView : String -> ValidationErrors -> Html Msg
-validationErrorView key validationErrors =
-    case Dict.get key validationErrors of
-        Just error ->
-            error
-                |> List.map text
-                |> p [ class "help is-danger" ]
+validationErrorMessage : String -> ValidationErrors -> Html Msg
+validationErrorMessage key validationErrors =
+    let
+        error =
+            Dict.get key validationErrors
+    in
+        case error of
+            Just message ->
+                message
+                    |> List.map text
+                    |> p [ class "help is-danger" ]
 
-        Nothing ->
-            text ""
+            Nothing ->
+                text ""

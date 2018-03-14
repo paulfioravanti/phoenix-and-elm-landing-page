@@ -1,12 +1,12 @@
 module Messages exposing (Msg(..))
 
-import Http
+import Lead.Messages exposing (LeadMsg)
 import Recaptcha.Messages exposing (RecaptchaMsg)
 
 
 type Msg
-    = HandleFullNameInput String
-    | HandleEmailInput String
-    | HandleFormSubmit
-    | SubscribeResponse (Result Http.Error Bool)
+    = FullNameChanged String
+    | EmailChanged String
+    | FormSubmitted
+    | LeadMsg LeadMsg
     | RecaptchaMsg RecaptchaMsg
