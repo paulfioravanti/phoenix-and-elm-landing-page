@@ -10,14 +10,13 @@ import Recaptcha.Ports
 import SubscribeForm.Model
     exposing
         ( FormFields
-        , SubscribeForm
         , SubscribeForm(Errored, Invalid, Success)
         , ValidationErrors
         )
 
 
-update : LeadMsg -> Model -> SubscribeForm -> FormFields -> ( Model, Cmd Msg )
-update msg model subscribeForm formFields =
+update : LeadMsg -> Model -> FormFields -> ( Model, Cmd Msg )
+update msg model formFields =
     case msg of
         LeadSubmission (Ok result) ->
             ( { model | subscribeForm = Success }, Cmd.none )

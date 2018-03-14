@@ -6,18 +6,12 @@ import Recaptcha.Messages exposing (RecaptchaMsg(SetRecaptchaToken))
 import SubscribeForm.Model
     exposing
         ( FormFields
-        , SubscribeForm
         , SubscribeForm(Editing)
         )
 
 
-update :
-    RecaptchaMsg
-    -> Model
-    -> SubscribeForm
-    -> FormFields
-    -> ( Model, Cmd Msg )
-update msg model subscribeForm formFields =
+update : RecaptchaMsg -> Model -> FormFields -> ( Model, Cmd Msg )
+update msg model formFields =
     case msg of
         SetRecaptchaToken token ->
             ( { model
