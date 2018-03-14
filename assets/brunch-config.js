@@ -48,7 +48,7 @@ exports.config = {
       // Do not use ES6 compiler in vendor code
       ignore: [
         /vendor/,
-        "js/elm/main.js"
+        "js/elm.js"
       ]
     },
     sass: {
@@ -62,10 +62,14 @@ exports.config = {
       },
     },
     elmBrunch: {
-      mainModules: ['src/Main.elm'],
-      elmFolder: 'elm',
-      outputFolder: '../js/elm',
-      makeParameters: ['--warn', '--debug'],
+      elmFolder: "elm",
+      mainModules: ["src/Main.elm"],
+      outputFolder: "../js",
+      outputFile: "elm.js",
+      makeParameters: [
+        "--warn",
+        "--debug"
+      ]
     }
   },
 

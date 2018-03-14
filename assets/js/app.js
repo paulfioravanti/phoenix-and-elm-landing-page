@@ -19,7 +19,7 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-import Elm from "./elm/main";
+import Elm from "./elm";
 import * as Recaptcha from "./lib/recaptcha";
 
 window.recaptchaLoaded = () => {
