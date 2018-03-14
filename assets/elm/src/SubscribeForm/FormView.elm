@@ -4,7 +4,8 @@ import Html exposing (Html, div, form, h3, p, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onSubmit)
 import Messages exposing (Msg(FormSubmitted))
-import Model exposing (SubscribeForm(Errored, Invalid, Saving))
+import Model
+import SubscribeForm.Model exposing (SubscribeForm(Errored, Invalid, Saving))
 import SubscribeForm.Fields as Fields
 
 

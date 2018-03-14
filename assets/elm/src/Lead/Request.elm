@@ -3,7 +3,7 @@ module Lead.Request exposing (submitLead)
 import Http
 import Lead.Decoder
 import Lead.Encoder
-import Model exposing (FormFields)
+import SubscribeForm.Model exposing (FormFields)
 
 
 submitLead : FormFields -> Http.Request Bool

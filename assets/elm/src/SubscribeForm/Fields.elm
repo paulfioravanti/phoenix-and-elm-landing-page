@@ -21,7 +21,7 @@ import Html.Attributes
         )
 import Html.Events exposing (onInput)
 import Messages exposing (Msg(SubscribeFormMsg))
-import Model exposing (ValidationErrors)
+import SubscribeForm.Model exposing (ValidationErrors)
 import SubscribeForm.Messages
     exposing
         ( SubscribeFormMsg(FullNameChanged, EmailChanged)

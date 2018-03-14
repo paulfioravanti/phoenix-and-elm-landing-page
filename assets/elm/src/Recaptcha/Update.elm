@@ -1,8 +1,14 @@
 module Recaptcha.Update exposing (update)
 
 import Messages exposing (Msg)
-import Model exposing (Model, FormFields, SubscribeForm, SubscribeForm(Editing))
+import Model exposing (Model)
 import Recaptcha.Messages exposing (RecaptchaMsg(SetRecaptchaToken))
+import SubscribeForm.Model
+    exposing
+        ( FormFields
+        , SubscribeForm
+        , SubscribeForm(Editing)
+        )
 
 
 update :

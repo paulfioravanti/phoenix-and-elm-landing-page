@@ -5,18 +5,14 @@ import Http exposing (Error(BadStatus))
 import Json.Decode as Decode
 import Lead.Messages exposing (LeadMsg(LeadSubmission))
 import Messages exposing (Msg)
-import Model
+import Model exposing (Model)
+import Recaptcha.Ports
+import SubscribeForm.Model
     exposing
-        ( Model
-        , FormFields
+        ( FormFields
         , SubscribeForm
         , SubscribeForm(Errored, Invalid, Success)
         , ValidationErrors
-        )
-import Recaptcha.Ports
-import SubscribeForm.Messages
-    exposing
-        ( SubscribeFormMsg(FullNameChanged, EmailChanged)
         )
 
 

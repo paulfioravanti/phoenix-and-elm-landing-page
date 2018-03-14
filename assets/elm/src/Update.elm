@@ -11,8 +11,9 @@ import Messages
             , SubscribeFormMsg
             )
         )
-import Model exposing (Model, SubscribeForm(Saving))
+import Model exposing (Model)
 import Recaptcha.Update
+import SubscribeForm.Model exposing (SubscribeForm(Saving))
 import SubscribeForm.Update
 
 
@@ -35,11 +36,11 @@ update msg model =
                     , Commands.subscribe newSubscribeForm
                     )
 
-            SubscribeFormMsg msg ->
-                SubscribeForm.Update.update msg model formFields
+            LeadMsg msg ->
+                Lead.Update.update msg model subscribeForm formFields
 
             RecaptchaMsg msg ->
                 Recaptcha.Update.update msg model subscribeForm formFields
 
-            LeadMsg msg ->
-                Lead.Update.update msg model subscribeForm formFields
+            SubscribeFormMsg msg ->
+                SubscribeForm.Update.update msg model formFields

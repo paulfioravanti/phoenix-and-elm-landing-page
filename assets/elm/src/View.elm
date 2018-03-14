@@ -2,9 +2,10 @@ module View exposing (view)
 
 import Html exposing (Html)
 import Messages exposing (Msg)
-import Model exposing (Model, SubscribeForm(Success))
-import SubscribeForm.SuccessView
+import Model exposing (Model)
 import SubscribeForm.FormView
+import SubscribeForm.SuccessView
+import SubscribeForm.Model exposing (SubscribeForm(Success))
 
 
 view : Model -> Html Msg

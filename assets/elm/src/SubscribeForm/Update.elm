@@ -1,10 +1,16 @@
 module SubscribeForm.Update exposing (update)
 
 import Messages exposing (Msg)
-import Model exposing (Model, FormFields, SubscribeForm, SubscribeForm(Editing))
+import Model exposing (Model)
 import SubscribeForm.Messages
     exposing
         ( SubscribeFormMsg(EmailChanged, FullNameChanged)
+        )
+import SubscribeForm.Model
+    exposing
+        ( FormFields
+        , SubscribeForm
+        , SubscribeForm(Editing)
         )
 
 

@@ -2,7 +2,7 @@ module Lead.Encoder exposing (encoder)
 
 import Json.Decode as Decode
 import Json.Encode as Encode exposing (object, string)
-import Model exposing (FormFields)
+import SubscribeForm.Model exposing (FormFields)
 
 
 encoder : FormFields -> Decode.Value

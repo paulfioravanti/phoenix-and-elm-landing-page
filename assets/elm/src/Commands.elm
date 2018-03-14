@@ -4,7 +4,7 @@ import Http
 import Lead.Messages exposing (LeadMsg(LeadSubmission))
 import Lead.Request as Request
 import Messages exposing (Msg(LeadMsg))
-import Model exposing (SubscribeForm, SubscribeForm(Saving))
+import SubscribeForm.Model exposing (SubscribeForm, SubscribeForm(Saving))
 
 
 subscribe : SubscribeForm -> Cmd Msg
