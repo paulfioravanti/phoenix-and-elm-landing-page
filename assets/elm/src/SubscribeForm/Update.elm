@@ -1,16 +1,17 @@
 module SubscribeForm.Update exposing (update)
 
+import Commands
 import Messages exposing (Msg)
 import Model exposing (Model)
 import SubscribeForm.Messages
     exposing
-        ( SubscribeFormMsg(EmailChanged, FullNameChanged)
+        ( SubscribeFormMsg(EmailChanged, FormSubmitted, FullNameChanged)
         )
 import SubscribeForm.Model
     exposing
         ( FormFields
         , SubscribeForm
-        , SubscribeForm(Editing)
+        , SubscribeForm(Editing, Saving)
         )
 
 
@@ -34,3 +35,12 @@ update msg model formFields =
               }
             , Cmd.none
             )
+
+        FormSubmitted ->
+            let
+                newSubscribeForm =
+                    Saving formFields
+            in
+                ( { model | subscribeForm = newSubscribeForm }
+                , Commands.subscribe newSubscribeForm
+                )

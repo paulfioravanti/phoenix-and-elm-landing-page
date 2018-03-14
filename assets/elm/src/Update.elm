@@ -1,19 +1,16 @@
 module Update exposing (update)
 
-import Commands
 import Lead.Update
 import Messages
     exposing
         ( Msg
-            ( FormSubmitted
-            , LeadMsg
+            ( LeadMsg
             , RecaptchaMsg
             , SubscribeFormMsg
             )
         )
 import Model exposing (Model)
 import Recaptcha.Update
-import SubscribeForm.Model exposing (SubscribeForm(Saving))
 import SubscribeForm.Update
 import SubscribeForm.Utilities
 
@@ -28,15 +25,6 @@ update msg model =
             SubscribeForm.Utilities.extractFormFields subscribeForm
     in
         case msg of
-            FormSubmitted ->
-                let
-                    newSubscribeForm =
-                        Saving formFields
-                in
-                    ( { model | subscribeForm = newSubscribeForm }
-                    , Commands.subscribe newSubscribeForm
-                    )
-
             LeadMsg msg ->
                 Lead.Update.update msg model subscribeForm formFields
 
