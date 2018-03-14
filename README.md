@@ -1,20 +1,16 @@
-# LandingPage
+# Phoenix & Elm landing page
 
-To start your Phoenix server:
+This is my sandbox for the [Phoenix and Elm landing page app][], created by
+[Ricardo García Vega][] over [a series of posts][App blog posts] over at
+[his blog][codeloveandboards].
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+I find that in order to really understand an app built over the course of a
+tutorial, I need to re-write it in a way that I can understand it, and that is
+what I've done here.  I've isolated out `Lead`, `Recaptcha`, and `SubscribeForm`
+concerns, and moved a lot of code around in an attempt to re-architect the app,
+so just consider this another take on what is a great example app.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+[App blog posts]: http://codeloveandboards.com/blog/2017/12/02/phoenix-elm-landing-page-pt-1/
+[Phoenix and Elm landing page app]: https://github.com/bigardone/phoenix-and-elm-landing-page
+[Ricardo García Vega]: https://twitter.com/bigardone
+[codeloveandboards]: http://codeloveandboards.com/
