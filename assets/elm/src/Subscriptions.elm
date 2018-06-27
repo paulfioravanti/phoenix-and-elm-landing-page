@@ -7,7 +7,7 @@ import Recaptcha.Subscriptions
 
 
 subscriptions : Model -> Sub Msg
-subscriptions =
+subscriptions _ =
     SetRecaptchaToken
         |> Recaptcha.Subscriptions.setRecaptchaToken
         |> Sub.map RecaptchaMsg
