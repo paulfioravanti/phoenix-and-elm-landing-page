@@ -6,13 +6,12 @@ export function initPorts(app) {
 let recaptcha;
 
 function initRecaptcha(app) {
-  app.ports.initRecaptcha.subscribe(id => {
+  app.ports.initRecaptcha.subscribe((id) => {
     window.requestAnimationFrame(() => {
       recaptcha = grecaptcha.render(id, {
         hl: "en",
         sitekey: "6LccDkwUAAAAACiEnnM1HucXGT0rdgcYQwag5WsJ",
-        callback: result => {
-          // Subscription
+        callback: (result) => {
           app.ports.setRecaptchaToken.send(result);
         },
       });
