@@ -10,7 +10,6 @@ import SubscribeForm.Messages
 import SubscribeForm.Model
     exposing
         ( FormFields
-        , SubscribeForm
         , SubscribeForm(Editing, Submitting)
         )
 

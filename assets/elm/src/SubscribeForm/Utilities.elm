@@ -4,11 +4,10 @@ module SubscribeForm.Utilities
         , extractValidationErrors
         )
 
-import Dict exposing (Dict)
+import Dict
 import SubscribeForm.Model
     exposing
         ( FormFields
-        , SubscribeForm
         , SubscribeForm(Editing, Errored, Invalid, Submitting, Success)
         , ValidationErrors
         )

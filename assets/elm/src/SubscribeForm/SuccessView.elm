@@ -1,6 +1,6 @@
 module SubscribeForm.SuccessView exposing (view)
 
-import Html exposing (Html, div, form, h2, i, p, text)
+import Html exposing (Html, div, h2, i, p, text)
 import Html.Attributes exposing (class)
 import Messages exposing (Msg)
 

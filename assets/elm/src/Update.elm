@@ -17,11 +17,11 @@ update msg model =
                 |> SubscribeForm.Utilities.extractFormFields
     in
         case msg of
-            LeadMsg msg ->
-                Lead.Update.update msg model formFields
+            LeadMsg leadMsg ->
+                Lead.Update.update leadMsg model formFields
 
-            RecaptchaMsg msg ->
-                Recaptcha.Update.update msg model formFields
+            RecaptchaMsg recaptchaMsg ->
+                Recaptcha.Update.update recaptchaMsg model formFields
 
-            SubscribeFormMsg msg ->
-                SubscribeForm.Update.update msg model formFields
+            SubscribeFormMsg subscribeFormMsg ->
+                SubscribeForm.Update.update subscribeFormMsg model formFields

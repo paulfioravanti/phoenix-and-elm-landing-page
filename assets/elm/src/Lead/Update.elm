@@ -18,13 +18,13 @@ import SubscribeForm.Model
 update : LeadMsg -> Model -> FormFields -> ( Model, Cmd Msg )
 update msg model formFields =
     case msg of
-        LeadSubmission (Ok result) ->
+        LeadSubmission (Ok _) ->
             ( { model | subscribeForm = Success }, Cmd.none )
 
         LeadSubmission (Err (BadStatus response)) ->
             handleBadStatus model response formFields
 
-        LeadSubmission (Err error) ->
+        LeadSubmission (Err _) ->
             formErrored model formFields
 
 
@@ -40,7 +40,7 @@ handleBadStatus model response formFields =
             Ok errors ->
                 formInvalid model formFields errors
 
-            Err error ->
+            Err _ ->
                 formErrored model formFields
 
 
