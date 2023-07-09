@@ -21,14 +21,7 @@ cp config/dev.example.exs config/dev.exs
 Then, put your [Recaptcha][] secret key in the config to use locally.
 See the original blog posts for information around that.
 
-## Deploy
-
-The app is also currently deployed to [Heroku][] here:
-
-<https://phoenix-and-elm-landing-page.herokuapp.com/>
-
 [App blog posts]: http://codeloveandboards.com/blog/2017/12/02/phoenix-elm-landing-page-pt-1/
-[Heroku]: https://www.heroku.com/
 [Phoenix and Elm landing page app]: https://github.com/bigardone/phoenix-and-elm-landing-page
 [Recaptcha]: https://www.google.com/recaptcha/intro/android.html
 [Ricardo García Vega]: https://twitter.com/bigardone
